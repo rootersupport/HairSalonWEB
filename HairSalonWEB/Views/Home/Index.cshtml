@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center mb-4">
+            <h2>Главная</h2>
+        </div>
+        <div class="col-12 text-center">
+            <div class="btn-group-vertical">
+                <a href="@Url.Action("MasterTable", "Home")" class="btn btn-primary btn-lg mb-2">Мастера</a>
+                <a href="@Url.Action("AdminTable", "Home")" class="btn btn-primary btn-lg mb-2">Администраторы</a>
+                <a href="@Url.Action("CompanyTable", "Home")" class="btn btn-primary btn-lg mb-2">Компания</a>
+                <a href="@Url.Action("ClientTable", "Home")" class="btn btn-primary btn-lg mb-2">Клиенты</a>
+                <a href="@Url.Action("ProceduresTable", "Home")" class="btn btn-primary btn-lg mb-2">Процедуры</a>
+                <a href="@Url.Action("RecordTable", "Home")" class="btn btn-primary btn-lg mb-2">Записи</a>
+            </div>
+        </div>
+    </div>
+</div>

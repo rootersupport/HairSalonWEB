@@ -1,0 +1,123 @@
+﻿@model IEnumerable<master>
+
+@{
+    ViewData["Title"] = "Мастера";
+}
+
+<h2>Таблица мастеров</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Пол</th>
+            <th>Номер</th>
+            <th>Положение</th>
+            <th>Профиль</th>
+            <th>Оклад</th>
+            <th>Логин</th>
+            <th>Пароль</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var master in Model)
+        {
+            <tr>
+                <td>@master.master_code</td>
+                <td>@master.master_surname</td>
+                <td>@master.master_name</td>
+                <td>@master.master_patronymic</td>
+                <td>@master.master_gender</td>
+                <td>@master.master_phone_number</td>
+                <td>@master.master_status</td>
+                <td>@master.master_profile</td>
+                <td>@master.master_salary</td>
+                <td>@master.master_login</td>
+                <td>@master.master_password</td>
+            </tr>
+        }
+        <p class="italic-text">*Если хотите изменить существующую запись введите ID в поле для ID. Если хотите добавить нового мастера, оставьте поле пустым.</p>
+        <div class="row">
+        <div class="col font-weight-bold">ID</div>
+        <div class="col font-weight-bold">Фамилия</div>
+        <div class="col font-weight-bold">Имя</div>
+        <div class="col font-weight-bold">Отчество</div>
+        <div class="col font-weight-bold">Пол</div>
+        <div class="col font-weight-bold">Номер</div>
+        <div class="col font-weight-bold">Положение</div>
+        <div class="col font-weight-bold">Профиль</div>
+        <div class="col font-weight-bold">Оклад</div>
+        <div class="col font-weight-bold">Логин</div>
+        <div class="col font-weight-bold">Пароль</div>
+        <div class="col"></div>
+        </div>
+        <form asp-action="AddMaster" asp-controller="Master" method="post">
+        <div class="row">
+            <div class="col">
+                <input name="master_code" class="form-control"/>
+            </div>
+            <div class="col">
+                <input name="master_surname" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="master_name" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="master_patronymic" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="master_gender" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="master_phone_number" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="master_status" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="master_profile" class="form-control" required />
+            </div>
+            <div class="col">
+                 <input name="master_salary" class="form-control" oninput="restrictInput(this)" required />
+            </div>
+            <div class="col">
+                <input name="master_login" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="master_password" class="form-control" required />
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+        </form>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+    </tbody>
+</table>
+<script>
+    // Функция, ограничивающая ввод символов кроме цифр и запрещающая ввод нуля в начале
+    function restrictInput(element) {
+        // Получаем текущее значение поля ввода
+        var currentValue = element.value;
+
+        // Удаляем все символы, кроме цифр
+        var newValue = currentValue.replace(/\D/g, '');
+
+        // Проверяем, начинается ли новое значение с нуля
+        if (newValue.startsWith('0')) {
+            // Если начинается с нуля, заменяем на пустую строку
+            newValue = '';
+        }
+
+        // Устанавливаем новое значение в поле ввода
+        element.value = newValue;
+    }
+</script>

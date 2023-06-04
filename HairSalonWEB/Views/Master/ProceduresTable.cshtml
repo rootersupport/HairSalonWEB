@@ -1,0 +1,83 @@
+﻿@model IEnumerable<procedures>
+
+<h2>Таблица процедур</h2>
+
+<table id="proceduresTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Длительность</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var procedure in Model)
+        {
+            <tr>
+                <td>@procedure.procedure_code</td>
+                <td>@procedure.procedure_name</td>
+                <td>@procedure.procedure_price</td>
+                <td>@procedure.procedure_time</td>
+                <td>
+                    <form asp-action="DeleteProcedure" asp-controller="Master" method="post">
+                        <input type="hidden" name="id" value="@procedure.procedure_code" />
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        <p class="italic-text">*Если хотите изменить существующую запись введите ID в поле для ID. Если хотите добавить новую услугу, оставьте поле пустым.</p>
+        <div class="row">
+        <div class="col font-weight-bold">ID</div>
+        <div class="col font-weight-bold">Название</div>
+        <div class="col font-weight-bold">Цена</div>
+        <div class="col font-weight-bold">Длительность (мин)</div>
+        <div class="col"></div>
+        </div>
+        <form asp-action="AddProcedure" asp-controller="Master" method="post">
+        <div class="row">
+             <div class="col">
+                <input name="procedure_code" class="form-control" />
+            </div>
+            <div class="col">
+                <input name="procedure_name" class="form-control" required />
+            </div>
+            <div class="col">
+                <input name="procedure_price" class="form-control" oninput="restrictInput(this)" required />
+            </div>
+            <div class="col">
+                <select name="procedure_time" class="form-control" required>
+                    @for (int i = 30; i <= 600; i += 30)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>  
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+        </form>
+    </tbody>
+</table>
+<script>
+    // Функция, ограничивающая ввод символов кроме цифр и запрещающая ввод нуля в начале
+    function restrictInput(element) {
+        // Получаем текущее значение поля ввода
+        var currentValue = element.value;
+
+        // Удаляем все символы, кроме цифр
+        var newValue = currentValue.replace(/\D/g, '');
+
+        // Проверяем, начинается ли новое значение с нуля
+        if (newValue.startsWith('0')) {
+            // Если начинается с нуля, заменяем на пустую строку
+            newValue = '';
+        }
+
+        // Устанавливаем новое значение в поле ввода
+        element.value = newValue;
+    }
+</script>

@@ -1,0 +1,18 @@
+﻿@model HairSalonWEB.Models.LoginModel
+
+<h2>Авторизация</h2>
+
+@Html.ValidationSummary()
+<form asp-controller="Account" asp-action="Login" method="post">
+    <div class="form-group">
+        <label for="login">Логин</label>
+        <input type="text" id="login" name="login" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Войти</button>
+</form>
+
+<a href="@Url.Action("Register", "Registration")" class="btn btn-primary mt-2">Регистрация</a>
